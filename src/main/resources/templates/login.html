@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	  
+	<head>
+		<title>Login</title>
+		<meta charset = "UTF-8"/>
+		<meta name="viewport" content = "width=device-width, initial-scale=1.0"/>
+		
+		<link rel="stylesheet" 
+				href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" 
+				href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"> <!-- Gives us some extra symbols -->
+	    <link rel="stylesheet" th:href="@{/custom.css}">
+	    
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"> </script>
+	</head>	  
+	<body>
+	    <div class="container">
+	    	<div th:replace="/fragments/navbar"></div>
+	        <h2>Welcome!</h2> <br/>
+	        <form th:action="@{/login}" method="post">
+	            <input type="text" id="username" name="username" placeholder="Username" class="form-control"/> <br/>
+	            <input type="password" placeholder="Password" id="password" name="password" class="form-control"/> <br/>
+	            <div align="center" th:if="${param.error}"> <!-- Activates when .failureUrl("/login?error=true") activates -->
+	                <h4 style="color: red">Login unsuccessful.</h4>
+	            </div>
+	            <button class="btn btn-md btn-success btn-block" name="Submit" value="Login" type="submit">Log in</button> 
+	        </form>
+	        <form th:action="@{/signup}" method="get">
+	        	<button class="btn btn-md btn-primary btn-block" name="Submit" value="Submit">Sign Up</button> 
+	        </form>
+	        
+	    </div>
+	</body>
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+
+
+
+
+
+
+
+
+
+	  
+</html>

@@ -1,0 +1,1 @@
+MERGE INTO `role` VALUES(1,'USER'); /*H2 specific command merge inserts role associated with command 1 (uses backticks)*/
