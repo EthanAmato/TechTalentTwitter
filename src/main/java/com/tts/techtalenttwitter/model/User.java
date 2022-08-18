@@ -1,6 +1,7 @@
 package com.tts.techtalenttwitter.model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -70,5 +71,11 @@ public class User {
 	
 	private Set<Role> roles;
 	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "user_follower", joinColumns = @JoinColumn(name = "user_id"),
+				inverseJoinColumns = @JoinColumn(name="follower_id")) //still a pointer to a user's id but just has name follower_id
+	private List<User> followers;
 	
+	@ManyToMany(mappedBy="followers") //relationship already defined by user_follower so basically looking at table from two diff sides
+	private List<User> following;
 }

@@ -1,5 +1,7 @@
 package com.tts.techtalenttwitter.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.tts.techtalenttwitter.model.Tweet;
@@ -28,13 +31,33 @@ public class TweetController {
 	@GetMapping(path = {"/tweets", "/"})
 	public String getFeed(Model model) {
 		
-		List<Tweet> tweets = tweetService.findAll();
+		List<Tweet> tweets = new ArrayList<>();
 		
+		List<User> followedUsers = userService.getLoggedInUser().getFollowing();
+		
+		for(User user: followedUsers) {
+			tweets.addAll(tweetService.findAllByUser(user));
+		} //Gets the tweets from only followed users - don't need to loop through whole database of tweets
+		
+		Collections.sort(tweets, (tweet1,tweet2) -> {
+			return tweet1.getCreatedAt().compareTo(tweet2.getCreatedAt());
+		}); // Arrow function that sorts based on created date so that feed is always showing the newest content
 		model.addAttribute("tweetList", tweets);
-		
-		
+
 		return "feed";
 	}
+	
+	@GetMapping(path = "/tweets/{tag}")
+	public String getTweetsByTag(@PathVariable(value = "tag") String tag,
+									Model model) {
+		List<Tweet> tweets = tweetService.FindAllWithTag(tag);
+		model.addAttribute("tweetList", tweets);
+		model.addAttribute("tag", tag);
+		
+		return "taggedTweets";
+	}
+	
+	
 	
 	@GetMapping(path="/tweets/new")
 	public String getTweetForm(Model model) {

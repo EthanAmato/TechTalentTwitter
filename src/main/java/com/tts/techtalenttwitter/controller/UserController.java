@@ -26,22 +26,42 @@ public class UserController {
 
 	@GetMapping(path="/users/{username}")
 	public String getUser(@PathVariable(value="username") String username, Model model) {
+		User loggedInUser = userService.getLoggedInUser();
+		
 		User user = userService.findByUsername(username);
 		List<Tweet> tweets = tweetService.findAllByUser(user);
+		
+		List<User> following = loggedInUser.getFollowing();
+		boolean isFollowing = false;
+		for(User followedUser: following) {
+			if(followedUser.getUsername().equals(username)){
+				isFollowing = true;
+			}
+		}
+		
+		boolean isSelfPage = loggedInUser.getUsername().equals(username);
+		
+		model.addAttribute("isSelfPage",isSelfPage);
+		model.addAttribute("following",isFollowing);
 		model.addAttribute("tweetList", tweets);
 		model.addAttribute("user",user);
+		
 		return "user";
 	}
 	
 	@GetMapping(path = "/users")
 	public String getUsers(Model model) {
 		List<User> users = userService.findAll();
+		User loggedInUser = userService.getLoggedInUser();
+		List<User> usersFollowing = loggedInUser.getFollowing();
+		
+		setFollowingStatus(users, usersFollowing,model);
 		model.addAttribute("users",users);
 		setTweetCount(users,model); //will be hashmap of users and # of tweets they made
-		
-		
 		return "users";
 	}
+
+
 
 	private void setTweetCount(List<User> users, Model model) {
 		Map<String, Integer> tweetCounts = new HashMap<>();
@@ -53,4 +73,18 @@ public class UserController {
 		model.addAttribute("tweetCounts",tweetCounts);
 	}
 	
+	private void setFollowingStatus(List<User> users, List<User> usersFollowing, Model model) {
+		Map<String, Boolean> followingStatus = new HashMap<>();
+		
+		String username = userService.getLoggedInUser().getUsername();
+
+		for (User user : users) {
+	        if(usersFollowing.contains(user)) {
+	            followingStatus.put(user.getUsername(), true);
+	        }else if (!user.getUsername().equals(username)) {
+	            followingStatus.put(user.getUsername(), false);
+	    	}
+	    }
+	    model.addAttribute("followingStatus", followingStatus);
+	}
 }
