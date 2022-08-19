@@ -42,7 +42,7 @@ public class User {
 	
 	@Length(min=3, message = "Your username must have at least 3 characters")
 	@Length(max=15, message = "Your username must have less than 15 characters")
-	@Pattern(regexp="[^//s]+", message="Your username cannot contain spaces")
+	@Pattern(regexp="[^\\s]+", message="Your username cannot contain spaces")
 	private String username;
 	
 	@Length(min=5, message="Your password must have at least 5 characters")

@@ -37,16 +37,7 @@
 	         	No Recent Tweets
 	         </div>
 	         
-	         <div class = "list-group" th:each = "tweet:${tweetList}">
-	         	<div class = "list-group-item list-group-item-action">
-	         		<h5>@<span th:text="${tweet.user.username}"></span></h5>
-	         		<small th:text="${#dates.format(tweet.createdAt,'M/d/yy')}">
-	         		</small>
-	         		
-	         		<p class= "mb-1" th:utext="${tweet.message}"></p>
-	         		
-	         	</div>
-	         </div>
+	         <div th:replace="/fragments/displayTweets"></div>
 	    </div>
 	</body>
 	  

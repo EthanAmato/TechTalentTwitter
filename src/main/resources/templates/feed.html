@@ -10,21 +10,21 @@
 	<body>
 	    <div class="container">
 	    	<div th:replace="/fragments/navbar"></div>
+	    	<ul class = "nav nav-tabs">
+	    		<li role = "presentation" th:classappend="${filter == 'all' ? 'active' : ''}">
+	    			<a href="/tweets">All</a>
+	    		</li>
+	    		<li role = "presentation" th:classappend="${filter == 'following' ? 'active' : ''}">
+	    			<a href="/tweets?filter=following">Following</a>
+	    		</li>
+	    	</ul>
 	         <h2>Tweets</h2>
-	         <div class ="list-group" th:each="tweet:${tweetList}">
-	         	<div class="list-group-item list-group-item-action">
-	         		<div class="d-flex w-100 justify-content-between">
-	         			<a style = "color:#00aced" class="username" th:href="@{/users/}+${tweet.user.username}">
-	         				@<span th:text="${tweet.user.username}"></span>
-	         				</a><br/>
-	         				<small th:text="${#dates.format(tweet.createdAt,'M/d/yy')}"></small>
-	         				<p class= "mb-1" th:utext="${tweet.message}"></p>
-	         		</div>
-	         	
-	         	</div>
+	         <div th:replace="/fragments/displayTweets"></div>
 	         
-	         </div> 
-	         <div th:if="${#lists.isEmpty(tweetList)}">
+	          <div th:if="${#lists.isEmpty(tweetList) && filter == 'following'}">
+	         	<h3>No Tweets From People you Follow Yet</h3> <!-- utext allows for possible html  -->
+	         </div>
+	         <div th:if="${#lists.isEmpty(tweetList) && filter == ''}">
 	         	<h3>No Tweets Yet</h3> <!-- utext allows for possible html  -->
 	         </div>
 	    </div>

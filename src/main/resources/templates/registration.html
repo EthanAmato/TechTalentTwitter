@@ -38,7 +38,7 @@
 	            </div>
 	        </form>
         </div>
-        <div th:if="4${success}">
+        <div th:if="${success}">
         	<span th:utext="${success}" class = "success-message"></span>
         	<form th:action="@{/login}" method="get">
 	        	<button class="btn btn-md btn-primary btn-block" name="Submit" value="Submit">Back to Login Page!</button> 

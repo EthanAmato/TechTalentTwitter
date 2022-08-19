@@ -1,0 +1,16 @@
+.navbar {
+    z-index: 10;
+    position: sticky;
+    top: 0;
+}
+.centered{
+	text-align:center;
+}
+
+a.username {
+	color:#00aced;
+}
+
+a.tag {
+	color:#00aced;
+}
