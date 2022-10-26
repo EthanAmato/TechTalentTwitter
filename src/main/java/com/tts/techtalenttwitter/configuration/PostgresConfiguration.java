@@ -39,10 +39,6 @@ public class PostgresConfiguration {
 								 .username(username)
 								 .password(password)
 								 .build();
-				
-		//		spring.datasource.url = jdbc:postgresql://ec2-52-23-131-232.compute-1.amazonaws.com:5432/d69re1hc1591f5
-//			spring.datasource.username = lelxosgteibxyt
-//			spring.datasource.password = ef541589f5070c9a8b03e52efde7db93332db795fca512978d1bbf0e303841a3
 		
 	}
 }
