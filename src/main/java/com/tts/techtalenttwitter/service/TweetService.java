@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 import org.ocpsoft.prettytime.PrettyTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.HtmlUtils;
 
 import com.tts.techtalenttwitter.model.Tag;
 import com.tts.techtalenttwitter.model.Tweet;
@@ -53,6 +54,7 @@ public class TweetService {
 	
 
 	public void save(Tweet tweet) {
+		tweet.setMessage(HtmlUtils.htmlEscape(tweet.getMessage())); //remove possibility of users injecting own html into tweets
 		handleTags(tweet);
 		tweetRepository.save(tweet);
 	}
@@ -81,6 +83,9 @@ public class TweetService {
 	}
 	
 	private List<TweetDisplay> formatTweets(List<Tweet> tweets) {
+		//Strip html or add escape for special characters
+		//Search for certain special characters like "<" ">" "&" etc. and 
+		//replace with htmlEntity &lt; &gt; &amp;
 		addTagLinks(tweets);
 		shortenLinks(tweets);
 		List<TweetDisplay> displayTweets = formatTimestamps(tweets);
