@@ -25,7 +25,7 @@ public class AuthorizationController {
 	
 	@GetMapping(path = "/login")
 	public String login() {
-		return "login";
+		return "login.html";
 	}
 	
 	@GetMapping(path = "/logout")
