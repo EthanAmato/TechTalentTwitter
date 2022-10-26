@@ -47,8 +47,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-			.authorizeRequests()
-				.antMatchers("/console/**").permitAll() //configures what PAGES can be accessed
+			.authorizeRequests() //configures what PAGES can be accessed
 				.antMatchers("/login").permitAll()
 				.antMatchers("/signup").permitAll()
 				.antMatchers("/custom.js").permitAll()
