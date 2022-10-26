@@ -4,12 +4,12 @@
 	  
 	<head>
 		<title>Tweets</title>
-		<th:block th:replace="/fragments/head"></th:block>
+		<th:block th:replace="fragments/head"></th:block>
 
 	</head>	  
 	<body>
 	    <div class="container">
-	    <div th:replace="/fragments/navbar"></div>
+	    <div th:replace="fragments/navbar"></div>
 	    
 	    <div th:if="${!isSelfPage}">
 			<form th:action="@{/follow/} + ${user.username}" th:if="${!following}" method="post">
@@ -37,7 +37,7 @@
 	         	No Recent Tweets
 	         </div>
 	         
-	         <div th:replace="/fragments/displayTweets"></div>
+	         <div th:replace="fragments/displayTweets"></div>
 	    </div>
 	</body>
 	  

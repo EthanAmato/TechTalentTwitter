@@ -4,12 +4,12 @@
 
 <head>
 <title>Tech Talent Twitter Users</title>
-<th:block th:replace="/fragments/head"></th:block>
+<th:block th:replace="fragments/head"></th:block>
 
 </head>
 <body>
 	<div class="container">
-		<div th:replace="/fragments/navbar"></div>
+		<div th:replace="fragments/navbar"></div>
 		<ul class = "nav nav-tabs">
 	    		<li role = "presentation" th:classappend="${filter == 'all' ? 'active' : ''}">
 	    			<a th:href="@{/users}">All</a>

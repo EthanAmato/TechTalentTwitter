@@ -4,12 +4,12 @@
 	  
 	<head>
 		<title>My Feed</title>
-		<th:block th:replace="/fragments/head"></th:block>
+		<th:block th:replace="fragments/head"></th:block>
 
 	</head>	  
 	<body>
 	    <div class="container">
-	    	<div th:replace="/fragments/navbar"></div>
+	    	<div th:replace="fragments/navbar"></div>
 	    	<ul class = "nav nav-tabs">
 	    		<li role = "presentation" th:classappend="${filter == 'all' ? 'active' : ''}">
 	    			<a href="/tweets">All</a>
@@ -19,7 +19,7 @@
 	    		</li>
 	    	</ul>
 	         <h2>Tweets</h2>
-	         <div th:replace="/fragments/displayTweets"></div>
+	         <div th:replace="fragments/displayTweets"></div>
 	         
 	          <div th:if="${#lists.isEmpty(tweetList) && filter == 'following'}">
 	         	<h3>No Tweets From People you Follow Yet</h3> <!-- utext allows for possible html  -->
